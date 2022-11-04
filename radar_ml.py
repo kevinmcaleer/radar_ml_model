@@ -12,27 +12,27 @@ def add1d(x, y):
         z = [x[i] + y[i] for i in range(len(x))]
         return z
 
-def dense(nunit, x, w, b, activation): # define a single dense layer followed by activation
+def dense(neural_unit, x, w, b, activation): # define a single dense layer followed by activation
 
     # this is ripe for a list comprehension
     res = []
-    for i in range(nunit):
+    for i in range(neural_unit):
         z = neuron(x, w[i], b[i], activation)
         # print(z)
         res.append(z)
     return res
 
-def neuron(x, w, b, activation): # perform operatoin on a single neuron and return a 1d array
+def neuron(x, weight, bias, activation): # perform operation on a single neuron and return a 1d array
 
     tmp = zeros1d(x[0])
 
     for i in range(len(x)):
-        tmp = add1d(tmp, [(float(w[i]) * float(x[i][j])) for j in range(len(x[0]))])
+        tmp = add1d(tmp, [(float(weight[i]) * float(x[i][j])) for j in range(len(x[0]))])
 
     if activation == "sigmoid":
-        yp = sigmoid([tmp[i] + b for i in range(len(tmp))])
+        yp = sigmoid([tmp[i] + bias for i in range(len(tmp))])
     elif activation == 'relu':
-        yp = relu([tmp[i]+ b for i in range(len(tmp))])
+        yp = relu([tmp[i]+ bias for i in range(len(tmp))])
     else:
         print("Invalid activation function--->")
     return yp
